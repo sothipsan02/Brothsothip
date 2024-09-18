@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>encrypt and decrypt </title>
+    <link rel="stylesheet" href="Enlish.css">
+<style>
+    body{
+    margin: 0;
+}
+.constainer{
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.constainer h1{ 
+    text-align: center;
+}
+#app-constainer {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    align-items: center;
+
+}
+#app-constainer textarea {
+    height: 200px;
+    width: 500px;
+    font-size: 18px;
+}
+#buttons-constainer {
+    margin-top: 30px;
+    display:flex;
+    width: 100%;
+    justify-content: center;
+    
+
+}
+#buttons-constainer input{
+    width: 30px;
+    margin: 0 15px 0 15px;
+}
+</style>
+</head>
+<body>
+    <h1>Casaer Encryption and Decrytion</h1>
+    <div>
+        <label for="inputText">Enter:</label>
+        <input type="text" id="inputText" placeholder="Enter your text here">
+    </div>
+    <div>
+        <button onclick="showAllEncryptShifts()">Encryption</button>
+        <button onclick="showAllDecryptShifts()">Decryption</button>
+    </div>
+    <div id="results">
+    </div>
+
+    <script>
+        function caesarCipher(text, shift) {
+            let result = '';
+
+            for (let i = 0; i < text.length; i++) {
+                let char = text[i];
+                
+                if (char.match(/[a-z]/i)) {
+                    let code = text.charCodeAt(i);
+
+                    if (char === char.toUpperCase()) {
+                        char = String.fromCharCode(((code - 65 + shift) % 26) + 65);
+                    } else {
+                        char = String.fromCharCode(((code - 97 + shift) % 26) + 97);
+                    }
+                }
+
+                result += char;
+            }
+
+            return result;
+        }
+        function caesarDecipher(text, shift) {
+            let result = '';
+
+            for (let i = 0; i < text.length; i++) {
+                let char = text[i];
+                
+                if (char.match(/[a-z]/i)) {
+                    let code = text.charCodeAt(i);
+
+                    if (char === char.toUpperCase()) {
+                        char = String.fromCharCode(((code - 65 - shift + 26) % 26) + 65);
+                    } else {
+                        char = String.fromCharCode(((code - 97 - shift + 26) % 26) + 97);
+                    }
+                }
+
+                result += char;
+            }
+
+            return result;
+        }
+        function showAllEncryptShifts() {
+            const text = document.getElementById('inputText').value;
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '';
+
+            for (let shift = 1; shift <= 25; shift++) {
+                const encryptedText = caesarCipher(text, shift);
+                const resultElement = document.createElement('p');
+                resultElement.textContent = Encryption(Shift)(encryptedText);
+                resultsDiv.appendChild(resultElement);
+            }
+        }
+        function showAllDecryptShifts() {
+            const text = document.getElementById('inputText').value;
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = ''; 
+
+            for (let shift = 1; shift <= 25; shift++) {
+                const decryptedText = caesarDecipher(text, shift);
+                const resultElement = document.createElement('p');
+                resultElement.textContent = Decryption (Shift)(decryptedText);
+                resultsDiv.appendChild(resultElement);
+            }
+        }
+    </script>
+</body>
+</html>
